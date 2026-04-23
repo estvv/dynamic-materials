@@ -9,7 +9,7 @@ use serde::Deserialize;
 ///
 /// Each behavior type determines how particles of that material move and interact
 /// with their surroundings during each update cycle.
-#[derive(Deserialize, Debug, Clone)]
+#[derive(Deserialize, Debug, Clone, PartialEq)]
 #[serde(rename_all = "lowercase")]
 pub enum Behavior {
     Static,
@@ -18,6 +18,7 @@ pub enum Behavior {
     Burning,
     Solid,
     Heavy,
+    Acid,
 }
 
 impl std::fmt::Display for Behavior {

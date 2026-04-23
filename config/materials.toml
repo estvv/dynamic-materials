@@ -39,5 +39,5 @@ density = 2.5
 id = 5
 name = "Acid"
 color = "#9fe073"
-behavior = "solid"
-density = 2.5
+behavior = "acid"
+density = 1.1

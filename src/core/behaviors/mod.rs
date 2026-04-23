@@ -3,6 +3,7 @@
 //! This module defines the behavior trait and implementations for different
 //! material types. Each behavior determines how particles move and interact.
 
+pub mod acid;
 pub mod granular;
 pub mod heavy;
 pub mod liquid;
@@ -35,6 +36,7 @@ pub fn dispatch(behavior: &Behavior, ctx: &BehaviorContext) -> MoveResult {
         Behavior::Granular => granular::find_position(ctx),
         Behavior::Liquid => liquid::find_position(ctx),
         Behavior::Heavy => heavy::find_position(ctx),
+        Behavior::Acid => acid::find_position(ctx),
         Behavior::Static | Behavior::Solid | Behavior::Burning => {
             static_behavior::find_position(ctx)
         }

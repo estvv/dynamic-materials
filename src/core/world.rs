@@ -3,6 +3,7 @@
 //! This module contains the core simulation grid where particles are stored.
 //! Movement behavior is delegated to the behaviors module.
 
+use crate::core::behavior::Behavior;
 use crate::core::behaviors;
 use crate::core::registry::MaterialRegistry;
 
@@ -172,6 +173,7 @@ impl World {
                                 crate::core::behavior::Behavior::Granular
                                     | crate::core::behavior::Behavior::Liquid
                                     | crate::core::behavior::Behavior::Heavy
+                                    | crate::core::behavior::Behavior::Acid
                             )
                         );
                         let below_can_move = matches!(
@@ -180,6 +182,7 @@ impl World {
                                 crate::core::behavior::Behavior::Granular
                                     | crate::core::behavior::Behavior::Liquid
                                     | crate::core::behavior::Behavior::Heavy
+                                    | crate::core::behavior::Behavior::Acid
                             )
                         );
 
@@ -200,6 +203,54 @@ impl World {
                             new_cells[index] = below_id;
                             new_cells[below_index] = material_id;
                         }
+                    }
+                }
+            }
+        }
+
+        for y in 0..self.height {
+            for x in 0..self.width {
+                let index = self.get_index(x, y);
+                let material_id = new_cells[index];
+
+                if material_id == 0 {
+                    continue;
+                }
+
+                let behavior = materials.get_behavior(material_id);
+                if behavior != Some(&Behavior::Acid) {
+                    continue;
+                }
+
+                let neighbors = [
+                    (x.wrapping_sub(1), y),
+                    (x + 1, y),
+                    (x, y.wrapping_sub(1)),
+                    (x, y + 1),
+                ];
+
+                for (nx, ny) in neighbors {
+                    if nx >= self.width || ny >= self.height {
+                        continue;
+                    }
+
+                    let n_index = self.get_index(nx, ny);
+                    let target_id = new_cells[n_index];
+
+                    if target_id == 0 || target_id == material_id {
+                        continue;
+                    }
+
+                    let target_behavior = materials.get_behavior(target_id);
+                    let is_dissolvable = matches!(
+                        target_behavior,
+                        Some(Behavior::Granular | Behavior::Liquid | Behavior::Heavy)
+                    );
+
+                    if is_dissolvable {
+                        new_cells[n_index] = 0;
+                        new_cells[index] = 0;
+                        break;
                     }
                 }
             }
