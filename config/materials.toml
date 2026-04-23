@@ -25,5 +25,19 @@ density = 0.998
 id = 3
 name = "Stone"
 color = "#6e6e6e"
+behavior = "heavy"
+density = 2.5
+
+[[material]]
+id = 4
+name = "Wall"
+color = "#725832"
+behavior = "solid"
+density = 2.5
+
+[[material]]
+id = 5
+name = "Acid"
+color = "#9fe073"
 behavior = "solid"
 density = 2.5

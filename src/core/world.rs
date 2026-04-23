@@ -171,6 +171,7 @@ impl World {
                             Some(
                                 crate::core::behavior::Behavior::Granular
                                     | crate::core::behavior::Behavior::Liquid
+                                    | crate::core::behavior::Behavior::Heavy
                             )
                         );
                         let below_can_move = matches!(
@@ -178,6 +179,7 @@ impl World {
                             Some(
                                 crate::core::behavior::Behavior::Granular
                                     | crate::core::behavior::Behavior::Liquid
+                                    | crate::core::behavior::Behavior::Heavy
                             )
                         );
 

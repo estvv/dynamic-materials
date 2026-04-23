@@ -4,6 +4,7 @@
 //! material types. Each behavior determines how particles move and interact.
 
 pub mod granular;
+pub mod heavy;
 pub mod liquid;
 pub mod static_behavior;
 
@@ -33,6 +34,7 @@ pub fn dispatch(behavior: &Behavior, ctx: &BehaviorContext) -> MoveResult {
     match behavior {
         Behavior::Granular => granular::find_position(ctx),
         Behavior::Liquid => liquid::find_position(ctx),
+        Behavior::Heavy => heavy::find_position(ctx),
         Behavior::Static | Behavior::Solid | Behavior::Burning => {
             static_behavior::find_position(ctx)
         }
