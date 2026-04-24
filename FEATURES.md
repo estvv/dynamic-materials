@@ -124,9 +124,8 @@
 - [ ] UNIT TESTS - Comprehensive test suite.
 
 ## Platform & Deployment
-- [ ] WASM BUILD - Browser-based simulation.
+- [x] WASM BUILD - Browser-based simulation.
 - [ ] CROSS-PLATFORM - Windows, macOS, Linux support.
-- [ ] ANDROID/iOS - Mobile touch controls.
 - [ ] NATIVE INSTALLERS - Package for distribution.
 
 ## Observability
